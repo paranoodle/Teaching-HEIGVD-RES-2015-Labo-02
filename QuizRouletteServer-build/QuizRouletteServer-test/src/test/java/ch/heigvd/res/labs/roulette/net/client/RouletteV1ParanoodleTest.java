@@ -31,4 +31,10 @@ public class RouletteV1ParanoodleTest {
     assertEquals("lapin", client.pickRandomStudent().getFullname());
   }
   
+  @Test
+  @TestAuthor(githubId = "paranoodle")
+  public void serverShouldDisconnect() throws IOException {
+    IRouletteV1Client client = roulettePair.getClient();
+  }
+  
 }
