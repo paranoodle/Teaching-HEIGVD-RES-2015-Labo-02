@@ -24,45 +24,61 @@ import java.util.logging.Logger;
 public class RouletteV1ClientImpl implements IRouletteV1Client {
 
   private static final Logger LOG = Logger.getLogger(RouletteV1ClientImpl.class.getName());
-
+  
+  private Socket socket;
+  private BufferedReader reader;
+  private PrintWriter writer;
+  
+  private String read() throws IOException {
+    return reader.readLine();
+  }
+  
   @Override
   public void connect(String server, int port) throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    socket = new Socket(server, port);
+    writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+    reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
   }
 
   @Override
   public void disconnect() throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    reader.close();
+    writer.close();
+    socket.close();
   }
 
   @Override
   public boolean isConnected() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    if (socket != null) return socket.isConnected();
+    else return false;
   }
 
   @Override
   public void loadStudent(String fullname) throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    writer.println(fullname);
   }
 
   @Override
   public void loadStudents(List<Student> students) throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    for (Student s : students) writer.println(s.getFullname());
   }
 
   @Override
   public Student pickRandomStudent() throws EmptyStoreException, IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    RandomCommandResponse cr = JsonObjectMapper.parseJson(read(), RandomCommandResponse.class);
+    return new Student(cr.getFullname());
   }
 
   @Override
   public int getNumberOfStudents() throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    InfoCommandResponse cr = JsonObjectMapper.parseJson(read(), InfoCommandResponse.class);
+    return cr.getNumberOfStudents();
   }
 
   @Override
   public String getProtocolVersion() throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    InfoCommandResponse cr = JsonObjectMapper.parseJson(read(), InfoCommandResponse.class);
+    return cr.getProtocolVersion();
   }
 
 
