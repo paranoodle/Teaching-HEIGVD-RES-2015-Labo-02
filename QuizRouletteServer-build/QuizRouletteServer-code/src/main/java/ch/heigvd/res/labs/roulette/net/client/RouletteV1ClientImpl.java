@@ -89,7 +89,11 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
     
     return new Student(cr.getFullname());
   }
-
+  
+  protected void endOfData() throws IOException {
+    read();
+  }
+  
   @Override
   public int getNumberOfStudents() throws IOException {
     writer.println(RouletteV1Protocol.CMD_INFO);

@@ -34,4 +34,9 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
     return sl.getStudents();
   }
   
+  protected void endOfData() throws IOException {
+    LoadCommandResponse cr = JsonObjectMapper.parseJson(read(), LoadCommandResponse.class);
+    if (cr.getStatus().equals("success"))  LOG.log(Level.INFO, "{0} students added.", cr.getNumberOfNewStudents());
+    else LOG.severe("Error. No students added.");
+  }
 }
