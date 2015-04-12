@@ -1,0 +1,35 @@
+package ch.heigvd.res.labs.roulette.net.protocol;
+
+/**
+ * This class is used to serialize/deserialize responses for the "LOAD" command
+ *
+ * @author Eleonore d'Agostino
+ */
+ 
+public class LoadCommandResponse {
+    private String status;
+    private int numberOfNewStudents;
+    
+    public LoadCommandResponse() {}
+    
+    public LoadCommandResponse(String s, int i) {
+        status = s;
+        numberOfNewStudents = i;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setStatus(String s) {
+        status = s;
+    }
+    
+    public int getNumberOfNewStudents() {
+        return numberOfNewStudents;
+    }
+    
+    public void setNumberOfNewStudents(int i) {
+        numberOfNewStudents = i;
+    }
+}

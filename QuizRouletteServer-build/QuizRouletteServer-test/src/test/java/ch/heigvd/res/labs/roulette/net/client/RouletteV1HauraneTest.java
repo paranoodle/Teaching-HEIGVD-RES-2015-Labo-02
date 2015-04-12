@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
-import sun.rmi.server.UnicastRef;
+//import sun.rmi.server.UnicastRef;
 
 /**
  * This class contains automated tests to validate the client and the server
