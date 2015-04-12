@@ -29,7 +29,12 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
   protected PrintWriter writer;
   
   protected String read() throws IOException {
-    return reader.readLine();
+    String line;
+    do {
+        line = reader.readLine();
+    } while (line.equalsIgnoreCase(RouletteV1Protocol.RESPONSE_HELLO)
+            || line.equalsIgnoreCase(RouletteV1Protocol.RESPONSE_HELP));
+    return line;
   }
   
   @Override
@@ -80,6 +85,8 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
     writer.flush();
     
     RandomCommandResponse cr = JsonObjectMapper.parseJson(read(), RandomCommandResponse.class);
+    if(cr.getError() != null) throw new EmptyStoreException();
+    
     return new Student(cr.getFullname());
   }
 

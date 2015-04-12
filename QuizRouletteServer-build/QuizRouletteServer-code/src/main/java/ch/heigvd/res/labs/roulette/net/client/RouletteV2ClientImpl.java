@@ -6,6 +6,7 @@ import ch.heigvd.res.labs.roulette.data.StudentsList;
 import ch.heigvd.res.labs.roulette.net.protocol.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.*;
 
 /**
  * This class implements the client side of the protocol specification (version 2).
@@ -14,12 +15,14 @@ import java.util.List;
  */
 public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRouletteV2Client {
 
+  private static final Logger LOG = Logger.getLogger(RouletteV2ClientImpl.class.getName());
+
   @Override
   public void clearDataStore() throws IOException {
     writer.println(RouletteV2Protocol.CMD_CLEAR);
     writer.flush();
     
-    if(!read().equals(RouletteV2Protocol.RESPONSE_CLEAR_DONE)) throw new IOException("Unexpected server response");
+    if(!read().equalsIgnoreCase(RouletteV2Protocol.RESPONSE_CLEAR_DONE)) throw new IOException("Unexpected server response");
   }
 
   @Override

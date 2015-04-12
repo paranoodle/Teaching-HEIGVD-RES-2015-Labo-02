@@ -37,7 +37,7 @@ public class RouletteV1ClientHandler implements IClientHandler {
     BufferedReader reader = new BufferedReader(new InputStreamReader(is));
     PrintWriter writer = new PrintWriter(new OutputStreamWriter(os));
 
-    writer.println("Hello. Online HELP is available. Will you find it?");
+    writer.println(RouletteV1Protocol.RESPONSE_HELLO);
     writer.flush();
 
     String command;
@@ -74,7 +74,7 @@ public class RouletteV1ClientHandler implements IClientHandler {
           done = true;
           break;
         default:
-          writer.println("Huh? please use HELP if you don't know what commands are available.");
+          writer.println(RouletteV1Protocol.RESPONSE_HELP);
           writer.flush();
           break;
       }
