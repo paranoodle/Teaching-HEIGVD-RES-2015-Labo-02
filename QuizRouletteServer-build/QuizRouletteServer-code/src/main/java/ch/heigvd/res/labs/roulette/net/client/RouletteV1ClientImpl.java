@@ -71,7 +71,7 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
     writer.println(RouletteV1Protocol.CMD_LOAD);
     writer.flush();
     
-    if(!read().equals(RouletteV2Protocol.RESPONSE_LOAD_START)) throw new IOException("Unexpected server response");
+    if(!read().equalsIgnoreCase(RouletteV1Protocol.RESPONSE_LOAD_START)) throw new IOException("Unexpected server response");
     
     for (Student s : students) writer.println(s.getFullname());
     
