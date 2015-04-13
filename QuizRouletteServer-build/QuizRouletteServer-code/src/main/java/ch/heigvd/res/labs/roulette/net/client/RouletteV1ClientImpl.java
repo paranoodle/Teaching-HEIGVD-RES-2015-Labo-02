@@ -77,6 +77,7 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
     
     writer.println(RouletteV1Protocol.CMD_LOAD_ENDOFDATA_MARKER);
     writer.flush();
+    endOfData();
   }
 
   @Override
